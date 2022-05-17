@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55E0A6452833A82F00BEAFFF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E0A6442833A82F00BEAFFF /* HomeView.swift */; };
+		55E0A6462833A82F00BEAFFF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E0A6442833A82F00BEAFFF /* HomeView.swift */; };
+		55E0A6472833A82F00BEAFFF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E0A6442833A82F00BEAFFF /* HomeView.swift */; };
+		55E0A6482833A82F00BEAFFF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E0A6442833A82F00BEAFFF /* HomeView.swift */; };
 		55F64A4028325359006720D5 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F64A3F28325359006720D5 /* Tests_iOS.swift */; };
 		55F64A4228325359006720D5 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F64A4128325359006720D5 /* Tests_iOSLaunchTests.swift */; };
 		55F64A4C28325359006720D5 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F64A4B28325359006720D5 /* Tests_macOS.swift */; };
@@ -37,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		55E0A6442833A82F00BEAFFF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		55F64A2728325358006720D5 /* GitCommitsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitCommitsApp.swift; sourceTree = "<group>"; };
 		55F64A2828325358006720D5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		55F64A2928325359006720D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -98,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				55F64A2728325358006720D5 /* GitCommitsApp.swift */,
+				55E0A6442833A82F00BEAFFF /* HomeView.swift */,
 				55F64A2828325358006720D5 /* ContentView.swift */,
 				55F64A2928325359006720D5 /* Assets.xcassets */,
 			);
@@ -299,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E0A6452833A82F00BEAFFF /* HomeView.swift in Sources */,
 				55F64A5128325359006720D5 /* ContentView.swift in Sources */,
 				55F64A4F28325359006720D5 /* GitCommitsApp.swift in Sources */,
 			);
@@ -308,6 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E0A6462833A82F00BEAFFF /* HomeView.swift in Sources */,
 				55F64A5228325359006720D5 /* ContentView.swift in Sources */,
 				55F64A5028325359006720D5 /* GitCommitsApp.swift in Sources */,
 			);
@@ -317,6 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E0A6472833A82F00BEAFFF /* HomeView.swift in Sources */,
 				55F64A4228325359006720D5 /* Tests_iOSLaunchTests.swift in Sources */,
 				55F64A4028325359006720D5 /* Tests_iOS.swift in Sources */,
 			);
@@ -326,6 +335,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E0A6482833A82F00BEAFFF /* HomeView.swift in Sources */,
 				55F64A4E28325359006720D5 /* Tests_macOSLaunchTests.swift in Sources */,
 				55F64A4C28325359006720D5 /* Tests_macOS.swift in Sources */,
 			);
