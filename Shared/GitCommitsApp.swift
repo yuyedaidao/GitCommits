@@ -9,11 +9,12 @@ import SwiftUI
 
 @main
 struct GitCommitsApp: App {
+    let appState = AppState()
     var body: some Scene {
         WindowGroup {
             HomeView()
             .frame(minWidth: 600,  maxWidth: CGFloat.infinity, minHeight: 400, maxHeight: CGFloat.infinity, alignment: .center)
-            .navigationTitle("我的Git提交记录")
+            .environmentObject(appState)
         }
     }
     

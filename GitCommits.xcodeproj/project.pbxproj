@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09401D3D9E55F9E8D5B87F0F /* Pods_GitCommits__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFB2AE64F414F5B129E9A9E4 /* Pods_GitCommits__iOS_.framework */; };
+		556DFE832834A28B00C67539 /* CommitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DFE822834A28B00C67539 /* CommitsView.swift */; };
+		556DFE842834A28B00C67539 /* CommitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DFE822834A28B00C67539 /* CommitsView.swift */; };
+		556DFE862834A40000C67539 /* RepositoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DFE852834A40000C67539 /* RepositoryView.swift */; };
+		556DFE872834A40000C67539 /* RepositoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DFE852834A40000C67539 /* RepositoryView.swift */; };
+		556DFE892834D67600C67539 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DFE882834D67600C67539 /* Repository.swift */; };
+		556DFE8A2834D67600C67539 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DFE882834D67600C67539 /* Repository.swift */; };
+		556DFE8D2834D71200C67539 /* RepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DFE8C2834D71200C67539 /* RepositoryType.swift */; };
+		556DFE8E2834D71200C67539 /* RepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DFE8C2834D71200C67539 /* RepositoryType.swift */; };
+		556DFE902834DC8700C67539 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DFE8F2834DC8700C67539 /* AppState.swift */; };
+		556DFE912834DC8700C67539 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DFE8F2834DC8700C67539 /* AppState.swift */; };
 		55E0A6452833A82F00BEAFFF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E0A6442833A82F00BEAFFF /* HomeView.swift */; };
 		55E0A6462833A82F00BEAFFF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E0A6442833A82F00BEAFFF /* HomeView.swift */; };
 		55E0A6472833A82F00BEAFFF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E0A6442833A82F00BEAFFF /* HomeView.swift */; };
@@ -21,6 +32,7 @@
 		55F64A5228325359006720D5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F64A2828325358006720D5 /* ContentView.swift */; };
 		55F64A5328325359006720D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F64A2928325359006720D5 /* Assets.xcassets */; };
 		55F64A5428325359006720D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F64A2928325359006720D5 /* Assets.xcassets */; };
+		9574FB507A3618A572C3B614 /* Pods_GitCommits__macOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440F7FD5CD24FCBEA4E99E2E /* Pods_GitCommits__macOS_.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +53,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		42613EEE6FE6B1B1B1D02C9E /* Pods-GitCommits (macOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCommits (macOS).debug.xcconfig"; path = "Target Support Files/Pods-GitCommits (macOS)/Pods-GitCommits (macOS).debug.xcconfig"; sourceTree = "<group>"; };
+		440F7FD5CD24FCBEA4E99E2E /* Pods_GitCommits__macOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitCommits__macOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		556DFE822834A28B00C67539 /* CommitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitsView.swift; sourceTree = "<group>"; };
+		556DFE852834A40000C67539 /* RepositoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryView.swift; sourceTree = "<group>"; };
+		556DFE882834D67600C67539 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		556DFE8C2834D71200C67539 /* RepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryType.swift; sourceTree = "<group>"; };
+		556DFE8F2834DC8700C67539 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		55E0A6442833A82F00BEAFFF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		55F64A2728325358006720D5 /* GitCommitsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitCommitsApp.swift; sourceTree = "<group>"; };
 		55F64A2828325358006720D5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,6 +73,10 @@
 		55F64A4728325359006720D5 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55F64A4B28325359006720D5 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		55F64A4D28325359006720D5 /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
+		6A1B6280DDC1E356B53B46E3 /* Pods-GitCommits (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCommits (iOS).debug.xcconfig"; path = "Target Support Files/Pods-GitCommits (iOS)/Pods-GitCommits (iOS).debug.xcconfig"; sourceTree = "<group>"; };
+		77DB20A873028F19CF73FA1F /* Pods-GitCommits (iOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCommits (iOS).release.xcconfig"; path = "Target Support Files/Pods-GitCommits (iOS)/Pods-GitCommits (iOS).release.xcconfig"; sourceTree = "<group>"; };
+		E4D00F040BAD63A32D0C7703 /* Pods-GitCommits (macOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitCommits (macOS).release.xcconfig"; path = "Target Support Files/Pods-GitCommits (macOS)/Pods-GitCommits (macOS).release.xcconfig"; sourceTree = "<group>"; };
+		EFB2AE64F414F5B129E9A9E4 /* Pods_GitCommits__iOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitCommits__iOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09401D3D9E55F9E8D5B87F0F /* Pods_GitCommits__iOS_.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9574FB507A3618A572C3B614 /* Pods_GitCommits__macOS_.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +113,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		556DFE8B2834D69B00C67539 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				556DFE882834D67600C67539 /* Repository.swift */,
+				556DFE8C2834D71200C67539 /* RepositoryType.swift */,
+				556DFE8F2834DC8700C67539 /* AppState.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		55F64A2128325358006720D5 = {
 			isa = PBXGroup;
 			children = (
@@ -96,16 +131,21 @@
 				55F64A3E28325359006720D5 /* Tests iOS */,
 				55F64A4A28325359006720D5 /* Tests macOS */,
 				55F64A2F28325359006720D5 /* Products */,
+				C0B1471C976774E876EC1004 /* Pods */,
+				84DB40233E14A0418621BE5C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		55F64A2628325358006720D5 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				556DFE8B2834D69B00C67539 /* Model */,
 				55F64A2728325358006720D5 /* GitCommitsApp.swift */,
+				556DFE852834A40000C67539 /* RepositoryView.swift */,
 				55E0A6442833A82F00BEAFFF /* HomeView.swift */,
 				55F64A2828325358006720D5 /* ContentView.swift */,
 				55F64A2928325359006720D5 /* Assets.xcassets */,
+				556DFE822834A28B00C67539 /* CommitsView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -147,6 +187,26 @@
 			path = "Tests macOS";
 			sourceTree = "<group>";
 		};
+		84DB40233E14A0418621BE5C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EFB2AE64F414F5B129E9A9E4 /* Pods_GitCommits__iOS_.framework */,
+				440F7FD5CD24FCBEA4E99E2E /* Pods_GitCommits__macOS_.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C0B1471C976774E876EC1004 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6A1B6280DDC1E356B53B46E3 /* Pods-GitCommits (iOS).debug.xcconfig */,
+				77DB20A873028F19CF73FA1F /* Pods-GitCommits (iOS).release.xcconfig */,
+				42613EEE6FE6B1B1B1D02C9E /* Pods-GitCommits (macOS).debug.xcconfig */,
+				E4D00F040BAD63A32D0C7703 /* Pods-GitCommits (macOS).release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -154,9 +214,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55F64A5728325359006720D5 /* Build configuration list for PBXNativeTarget "GitCommits (iOS)" */;
 			buildPhases = (
+				1935393A0C9F40AD202F5815 /* [CP] Check Pods Manifest.lock */,
 				55F64A2A28325359006720D5 /* Sources */,
 				55F64A2B28325359006720D5 /* Frameworks */,
 				55F64A2C28325359006720D5 /* Resources */,
+				471F2E001A2A85CBCE9ACBBC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -171,9 +233,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55F64A5A28325359006720D5 /* Build configuration list for PBXNativeTarget "GitCommits (macOS)" */;
 			buildPhases = (
+				7E956882448304E50F8B8B87 /* [CP] Check Pods Manifest.lock */,
 				55F64A3028325359006720D5 /* Sources */,
 				55F64A3128325359006720D5 /* Frameworks */,
 				55F64A3228325359006720D5 /* Resources */,
+				0173AC59B960999EF7A92A57 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -300,6 +364,87 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0173AC59B960999EF7A92A57 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GitCommits (macOS)/Pods-GitCommits (macOS)-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GitCommits (macOS)/Pods-GitCommits (macOS)-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GitCommits (macOS)/Pods-GitCommits (macOS)-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1935393A0C9F40AD202F5815 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GitCommits (iOS)-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		471F2E001A2A85CBCE9ACBBC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GitCommits (iOS)/Pods-GitCommits (iOS)-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GitCommits (iOS)/Pods-GitCommits (iOS)-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GitCommits (iOS)/Pods-GitCommits (iOS)-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7E956882448304E50F8B8B87 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GitCommits (macOS)-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		55F64A2A28325359006720D5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -308,6 +453,11 @@
 				55E0A6452833A82F00BEAFFF /* HomeView.swift in Sources */,
 				55F64A5128325359006720D5 /* ContentView.swift in Sources */,
 				55F64A4F28325359006720D5 /* GitCommitsApp.swift in Sources */,
+				556DFE902834DC8700C67539 /* AppState.swift in Sources */,
+				556DFE862834A40000C67539 /* RepositoryView.swift in Sources */,
+				556DFE832834A28B00C67539 /* CommitsView.swift in Sources */,
+				556DFE8D2834D71200C67539 /* RepositoryType.swift in Sources */,
+				556DFE892834D67600C67539 /* Repository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +468,11 @@
 				55E0A6462833A82F00BEAFFF /* HomeView.swift in Sources */,
 				55F64A5228325359006720D5 /* ContentView.swift in Sources */,
 				55F64A5028325359006720D5 /* GitCommitsApp.swift in Sources */,
+				556DFE912834DC8700C67539 /* AppState.swift in Sources */,
+				556DFE872834A40000C67539 /* RepositoryView.swift in Sources */,
+				556DFE842834A28B00C67539 /* CommitsView.swift in Sources */,
+				556DFE8E2834D71200C67539 /* RepositoryType.swift in Sources */,
+				556DFE8A2834D67600C67539 /* Repository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,6 +623,7 @@
 		};
 		55F64A5828325359006720D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6A1B6280DDC1E356B53B46E3 /* Pods-GitCommits (iOS).debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -498,6 +654,7 @@
 		};
 		55F64A5928325359006720D5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77DB20A873028F19CF73FA1F /* Pods-GitCommits (iOS).release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -529,6 +686,7 @@
 		};
 		55F64A5B28325359006720D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42613EEE6FE6B1B1B1D02C9E /* Pods-GitCommits (macOS).debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -557,6 +715,7 @@
 		};
 		55F64A5C28325359006720D5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4D00F040BAD63A32D0C7703 /* Pods-GitCommits (macOS).release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

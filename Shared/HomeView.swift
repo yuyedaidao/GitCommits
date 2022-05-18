@@ -9,43 +9,89 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        HStack(alignment: .top) {
+        NavigationView {
             MenuView()
-                .frame(idealWidth: 200, maxWidth: .infinity, alignment: .topLeading)
-            DetailView()
-                .background(Color.secondary)
+                .frame(minWidth: 80, maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding()
+            IntroductionView()
+                .frame(minWidth: 100, maxWidth: .infinity, alignment: .center)
         }
+        .navigationTitle("我的Git提交记录")
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                Button(action: toggleSidebar, label: {
+                    Image(systemName: "sidebar.left")
+                })
+            }
+        }
+    }
+    
+    private func toggleSidebar() {
+        #if os(iOS)
+        #else
+        NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
+        #endif
     }
 }
 
 struct MenuView: View {
+    
+    @EnvironmentObject var appState: AppState
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            // 仓库
-            MenuItem(title: "仓库")
+        List {
+           
+            if appState.repositories.isEmpty {
+                NavigationLink {
+                    EmptyRepositoryView()
+                } label: {
+                    MenuItem(title: "导入仓库")
+                }
+            } else {
+                Section("仓库") {
+                    ForEach(appState.repositories) { repository in
+                        NavigationLink {
+                            RepositoryView(repository: repository)
+                        } label: {
+                            MenuItem(title: "仓库")
+                        }
+                    }
+                }
+            }
             // 记录
-            MenuItem(title: "记录")
+            Section("记录") {
+                NavigationLink(destination: CommitsView()) {
+                    MenuItem(title: "本周")
+                }
+                NavigationLink(destination: CommitsView()) {
+                    MenuItem(title: "今天")
+                }
+                NavigationLink(destination: CommitsView()) {
+                    MenuItem(title: "本月")
+                }
+                NavigationLink(destination: CommitsView()) {
+                    MenuItem(title: "自选")
+                }
+            }
             // 设置
             Spacer()
-            MenuItem(title: "设置")
+
         }
+        .listStyle(SidebarListStyle())
     }
 }
 
 struct MenuItem: View {
     var title: String
-//    var isSelected: Bool
     
     var body: some View {
-        Button(title) {
-            
-        }
+        Text(title)
     }
 }
 
-struct DetailView: View {
+struct IntroductionView: View {
     var body: some View {
-        Text("我是个详情页")
+        Text("我是个介绍页").frame(alignment: .center)
     }
 }
 

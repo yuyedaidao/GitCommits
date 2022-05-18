@@ -1,0 +1,6 @@
+framework module Pods_GitCommits__macOS_ {
+  umbrella header "Pods-GitCommits (macOS)-umbrella.h"
+
+  export *
+  module * { export * }
+}
