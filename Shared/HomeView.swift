@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import Combine
 
 struct HomeView: View {
+    @EnvironmentObject var appState: AppState
     var body: some View {
         NavigationView {
             MenuView()
@@ -23,6 +25,9 @@ struct HomeView: View {
                     Image(systemName: "sidebar.left")
                 })
             }
+        }.sheet(isPresented: $appState.isRepositoryImportPresented) {
+            RepositoryImportView()
+                .frame(minWidth: 400, maxWidth: .infinity, minHeight: 500, maxHeight: .infinity, alignment: .center)
         }
     }
     
@@ -40,7 +45,6 @@ struct MenuView: View {
     
     var body: some View {
         List {
-           
             if appState.repositories.isEmpty {
                 NavigationLink {
                     EmptyRepositoryView()

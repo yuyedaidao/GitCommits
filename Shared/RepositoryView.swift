@@ -10,7 +10,6 @@ import SwiftUI
 struct RepositoryView: View {
     
     let repository: Repository
-    
     var body: some View {
         Text("Hello, Repositories!")
     }
@@ -24,9 +23,19 @@ struct RepositoriesView_Previews: PreviewProvider {
 
 
 struct EmptyRepositoryView: View {
+    @EnvironmentObject var appState: AppState
     var body: some View {
         Button {
-            
+            appState.isRepositoryImportPresented = true
+//            guard let url = URL(string: "gitcommits://gc_import_repository") else  {return}
+//            NSWorkspace.shared.open(url)
+//            SwiftUIWindow.open { window in
+//                RepositoryImportView()
+//                    .frame(minWidth: 400, maxWidth: .infinity, minHeight: 500, maxHeight: .infinity, alignment: .center)
+//            }
+//                .alwaysOnTop(true)
+//                .transparentBackground(false)
+//                .mouseMovesWindow(true)
         } label: {
             VStack(spacing: 6) {
                 Image(systemName: "plus")
@@ -36,14 +45,6 @@ struct EmptyRepositoryView: View {
                 Text("导入一个仓库")
             }
         }.buttonStyle(PlainButtonStyle())
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(action: {
 
-                    }, label: {
-                        Image(systemName: "plus").imageScale(.large)
-                    })
-                }
-            }
     }
 }
