@@ -8,14 +8,16 @@
 import Foundation
 
 struct Repository {
-    let type: RepositoryType
+    let type: RepositoryType = .gitlab
     let address: String
     let name: String
-    let owner: String
+    let fullName: String
+    let owner: String?
+    let avatar: String?
+    let token: String
+    let id: uint64
+    let isPrivate: Bool = false
+    
 }
 
-extension Repository: Identifiable {
-    var id: String {
-        return address
-    }
-}
+extension Repository: Identifiable {}

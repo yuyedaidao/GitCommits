@@ -28,6 +28,8 @@
 		55E0A6462833A82F00BEAFFF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E0A6442833A82F00BEAFFF /* HomeView.swift */; };
 		55E0A6472833A82F00BEAFFF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E0A6442833A82F00BEAFFF /* HomeView.swift */; };
 		55E0A6482833A82F00BEAFFF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E0A6442833A82F00BEAFFF /* HomeView.swift */; };
+		55E6057B28379E2A008EBA5C /* ConfirmButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E6057A28379E2A008EBA5C /* ConfirmButtonStyle.swift */; };
+		55E6057C28379E2A008EBA5C /* ConfirmButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E6057A28379E2A008EBA5C /* ConfirmButtonStyle.swift */; };
 		55F64A4028325359006720D5 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F64A3F28325359006720D5 /* Tests_iOS.swift */; };
 		55F64A4228325359006720D5 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F64A4128325359006720D5 /* Tests_iOSLaunchTests.swift */; };
 		55F64A4C28325359006720D5 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F64A4B28325359006720D5 /* Tests_macOS.swift */; };
@@ -71,6 +73,7 @@
 		55BE58F82835F816006E9DD6 /* GitCommits--macOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GitCommits--macOS--Info.plist"; sourceTree = "<group>"; };
 		55BE58F92836185A006E9DD6 /* Appdelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appdelegate.swift; sourceTree = "<group>"; };
 		55E0A6442833A82F00BEAFFF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		55E6057A28379E2A008EBA5C /* ConfirmButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmButtonStyle.swift; sourceTree = "<group>"; };
 		55F64A2728325358006720D5 /* GitCommitsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitCommitsApp.swift; sourceTree = "<group>"; };
 		55F64A2928325359006720D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55F64A2E28325359006720D5 /* GitCommits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitCommits.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +135,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		55E6057928379E0B008EBA5C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				55E6057A28379E2A008EBA5C /* ConfirmButtonStyle.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		55F64A2128325358006720D5 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +160,7 @@
 		55F64A2628325358006720D5 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				55E6057928379E0B008EBA5C /* View */,
 				556DFE8B2834D69B00C67539 /* Model */,
 				55F64A2728325358006720D5 /* GitCommitsApp.swift */,
 				556DFE852834A40000C67539 /* RepositoryView.swift */,
@@ -470,6 +482,7 @@
 				55BE58EF2835DD01006E9DD6 /* RepositoryImportView.swift in Sources */,
 				556DFE862834A40000C67539 /* RepositoryView.swift in Sources */,
 				556DFE832834A28B00C67539 /* CommitsView.swift in Sources */,
+				55E6057B28379E2A008EBA5C /* ConfirmButtonStyle.swift in Sources */,
 				556DFE8D2834D71200C67539 /* RepositoryType.swift in Sources */,
 				556DFE892834D67600C67539 /* Repository.swift in Sources */,
 			);
@@ -483,6 +496,7 @@
 				55BE58F72835F391006E9DD6 /* WindowModifier.swift in Sources */,
 				55F64A5028325359006720D5 /* GitCommitsApp.swift in Sources */,
 				556DFE912834DC8700C67539 /* AppState.swift in Sources */,
+				55E6057C28379E2A008EBA5C /* ConfirmButtonStyle.swift in Sources */,
 				55BE58FA2836185A006E9DD6 /* Appdelegate.swift in Sources */,
 				55BE58F52835F35A006E9DD6 /* HostingView.swift in Sources */,
 				55BE58F02835DD01006E9DD6 /* RepositoryImportView.swift in Sources */,

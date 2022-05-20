@@ -11,3 +11,10 @@ enum RepositoryType: String, Codable {
     case github
     case gitlab
 }
+
+extension RepositoryType: CaseIterable {}
+extension RepositoryType: Identifiable {
+    var id: String {
+        return rawValue
+    }
+}

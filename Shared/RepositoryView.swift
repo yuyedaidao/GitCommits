@@ -15,11 +15,11 @@ struct RepositoryView: View {
     }
 }
 
-struct RepositoriesView_Previews: PreviewProvider {
-    static var previews: some View {
-        RepositoryView(repository: Repository(type: .github, address: "", name: "appicon", owner: "padding"))
-    }
-}
+//struct RepositoriesView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RepositoryView(repository: Repository(type: .github, address: "", name: "appicon", owner: "padding"))
+//    }
+//}
 
 
 struct EmptyRepositoryView: View {
