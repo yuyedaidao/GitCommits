@@ -57,28 +57,31 @@ struct MenuView: View {
                         NavigationLink {
                             RepositoryView(repository: repository)
                         } label: {
-                            MenuItem(title: "仓库")
+                            MenuItem(title: repository.name)
                         }
                     }
                 }
             }
             // 记录
             Section("记录") {
-                NavigationLink(destination: CommitsView()) {
+                NavigationLink(destination: CommitsView(range: .week)) {
                     MenuItem(title: "本周")
                 }
-                NavigationLink(destination: CommitsView()) {
+                NavigationLink(destination: CommitsView(range: .today)) {
                     MenuItem(title: "今天")
                 }
-                NavigationLink(destination: CommitsView()) {
+                NavigationLink(destination: CommitsView(range: .month)) {
                     MenuItem(title: "本月")
                 }
-                NavigationLink(destination: CommitsView()) {
+                NavigationLink(destination: CommitsView(range: .custom)) {
                     MenuItem(title: "自选")
                 }
             }
             // 设置
             Spacer()
+            NavigationLink(destination: SettingsView()) {
+                Text("设置").fontWeight(.medium)
+            }
 
         }
         .listStyle(SidebarListStyle())

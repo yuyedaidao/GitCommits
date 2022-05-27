@@ -6,18 +6,32 @@
 //
 
 import Foundation
+import GRDB
 
 struct Repository {
-    let type: RepositoryType = .gitlab
+    let id: uint64
+    let type: RepositoryType
     let address: String
     let name: String
     let fullName: String
     let owner: String?
     let avatar: String?
     let token: String
-    let id: uint64
-    let isPrivate: Bool = false
-    
+    var branches: String
 }
 
 extension Repository: Identifiable {}
+extension Repository: Codable {}
+extension Repository: FetchableRecord, PersistableRecord {
+    enum Columns: String, CodingKey, ColumnExpression {
+        case id
+        case type
+        case address
+        case name
+        case fullName
+        case owner
+        case avatar
+        case token
+        case branches
+    }
+}

@@ -6,36 +6,38 @@
 //
 
 import SwiftUI
+import WebKit
 
 struct RepositoryView: View {
-    
+    @EnvironmentObject var appState: AppState
     let repository: Repository
     var body: some View {
-        Text("Hello, Repositories!")
+        let request = try! URLRequest(url: repository.address, method: .get)
+        return NavigationView {
+            WebView(request: request).toolbar {
+       
+                ToolbarItemGroup(placement: .confirmationAction) {
+                    Button(action: {
+                        appState.isRepositoryImportPresented = true
+                    }, label: {
+                        Image(systemName: "plus")
+                    })
+                    NavigationLink {
+                        Text("好的")
+                    } label: {
+                        Image(systemName: "gear.circle")
+                    }
+                }
+            }
+        }
     }
 }
-
-//struct RepositoriesView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RepositoryView(repository: Repository(type: .github, address: "", name: "appicon", owner: "padding"))
-//    }
-//}
-
 
 struct EmptyRepositoryView: View {
     @EnvironmentObject var appState: AppState
     var body: some View {
         Button {
             appState.isRepositoryImportPresented = true
-//            guard let url = URL(string: "gitcommits://gc_import_repository") else  {return}
-//            NSWorkspace.shared.open(url)
-//            SwiftUIWindow.open { window in
-//                RepositoryImportView()
-//                    .frame(minWidth: 400, maxWidth: .infinity, minHeight: 500, maxHeight: .infinity, alignment: .center)
-//            }
-//                .alwaysOnTop(true)
-//                .transparentBackground(false)
-//                .mouseMovesWindow(true)
         } label: {
             VStack(spacing: 6) {
                 Image(systemName: "plus")
