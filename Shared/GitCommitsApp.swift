@@ -17,9 +17,6 @@ struct GitCommitsApp: App {
             HomeView()
                 .environmentObject(appState)
                 .frame(minWidth: 600,  maxWidth: CGFloat.infinity, minHeight: 400, maxHeight: CGFloat.infinity, alignment: .center)
-                .onAppear {
-                    print("on appear")
-                }
         }
     }
     

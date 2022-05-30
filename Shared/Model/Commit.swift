@@ -49,7 +49,7 @@ extension Commit {
             return Commit(cid: cid, date: date, message: message, author: author, email: email, url: url)
         case .gitlab:
             let dateFormatter = ISO8601DateFormatter()
-            dateFormatter.formatOptions = .withTimeZone
+            dateFormatter.formatOptions = [.withTimeZone, .withInternetDateTime, .withFractionalSeconds]
             guard let cid = object["id"] as? String,
                   let _date = object["created_at"] as? String,
                   let date = dateFormatter.date(from: _date),

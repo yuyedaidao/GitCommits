@@ -15,23 +15,25 @@ extension String: Identifiable {
 }
 
 struct SettingsView: View {
-    @State var name: String = ""
-    @AppStorage("authors") var authors: [String] = []
+    @State var email: String = ""
+    @State var regex: String = ""
+    @AppStorage("emails") var emails: Set<String> = []
+    @AppStorage("filterRegxes") var filterRegxes: Set<String> = []
     @State var uuid: UUID = UUID()
     var body: some View {
         Group {
             List {
-                SettingsCell(label: "作者") {
+                SettingsCell(label: "作者邮箱") {
                     VStack(alignment: .leading, spacing: 8) {
-                        ForEach(authors) { name in
+                        ForEach(Array(emails)) { email in
                             HStack(alignment: .center, spacing: 4) {
-                                Text(name).foregroundColor(.white)
+                                Text(email).foregroundColor(.white)
                                 Button {
                                     // TODO: 增加确认
-                                    guard let first = authors.firstIndex(of: name) else {
+                                    guard let first = emails.firstIndex(of: email) else {
                                         return
                                     }
-                                    authors.remove(at: first)
+                                    emails.remove(at: first)
                                     uuid = UUID()
                                     
                                 } label: {
@@ -49,16 +51,16 @@ struct SettingsView: View {
                             
                                                     }
                         HStack(alignment: .center, spacing: 4) {
-                            TextField("输入名字", text: $name)
-                                .frame(width: 100, height: 20)
+                            TextField("输入邮箱", text: $email)
+                                .frame(width: 200, height: 20)
                                 .textFieldStyle(.roundedBorder)
 
                             Button {
-                                guard !name.isEmpty, !authors.contains(name) else {
+                                guard !email.isEmpty, !emails.contains(email) else {
                                     return
                                 }
-                                authors = authors + [name]
-                                name = ""
+                                emails.insert(email)
+                                email = ""
                                 uuid = UUID()
                             } label: {
                                 Image(systemName: "plus")
@@ -70,7 +72,56 @@ struct SettingsView: View {
                         }
                     }
                 }.id(uuid)
-            }.buttonStyle(PlainButtonStyle())
+                .animation(Animation.default, value: uuid)
+                SettingsCell(label: "匹配过滤") {
+                    VStack(alignment: .leading, spacing: 8) {
+                        ForEach(Array(filterRegxes)) { email in
+                            HStack(alignment: .center, spacing: 4) {
+                                Text(email).foregroundColor(.white)
+                                Button {
+                                    guard let first = filterRegxes.firstIndex(of: email) else {
+                                        return
+                                    }
+                                    filterRegxes.remove(at: first)
+//                                    uuid = UUID()
+                                    
+                                } label: {
+                                    Image(systemName: "xmark.circle")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 12, height: 12)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                            .frame(height: 28, alignment: .center)
+                            .padding(.horizontal, 10)
+                            .background(Color.blue)
+                            .cornerRadius(14)
+                            
+                                                    }
+                        HStack(alignment: .center, spacing: 4) {
+                            TextField("输入正则", text: $regex)
+                                .frame(width: 200, height: 20)
+                                .textFieldStyle(.roundedBorder)
+
+                            Button {
+                                guard !regex.isEmpty, !filterRegxes.contains(regex) else {
+                                    return
+                                }
+                                filterRegxes.insert(regex)
+                                regex = ""
+                            } label: {
+                                Image(systemName: "plus")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 12, height: 12)
+                            }
+                            Spacer()
+                        }
+                    }
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
         }
         
     }

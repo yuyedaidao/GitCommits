@@ -4,7 +4,7 @@
 def common
   pod 'Alamofire'
   pod 'GRDB.swift'
-#  pod 'YQLogger'
+  pod 'YQLogger'
 end
 
 target 'GitCommits (iOS)' do

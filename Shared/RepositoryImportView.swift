@@ -72,16 +72,15 @@ struct RepositoryImportView: View {
                             HStack(alignment: .center, spacing: 4) {
                                 Text(name).foregroundColor(.white)
                                 Button {
-                                    // TODO: 增加确认
-                                    
-                                    
+                                    guard let index = branches.firstIndex(of: name) else {return}
+                                    branches.remove(at: index)
                                 } label: {
                                     Image(systemName: "xmark.circle")
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 12, height: 12)
                                         .foregroundColor(.secondary)
-                                }
+                                }.buttonStyle(.borderless)
                             }
                             .frame(height: 28, alignment: .center)
                             .padding(.horizontal, 10)
@@ -108,6 +107,7 @@ struct RepositoryImportView: View {
                 .frame(maxWidth: .infinity, alignment: .center)
                                 
             }
+            .animation(Animation.default, value: branches)
             .padding()
             .alert(alertMessage, isPresented: $isAlertPresented) {
                 
@@ -133,11 +133,6 @@ struct RepositoryImportView: View {
         }
     }
     
-    func Label(_ text: String) -> some View {
-        Text(text)
-            .font(.headline)
-            .frame(width: 70, alignment: .leading)
-    }
     
     func importRepository() {
         guard !address.isEmpty else {

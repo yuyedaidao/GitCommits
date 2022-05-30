@@ -35,6 +35,9 @@ struct CommitsView: View {
     
     @State var isLoading: Bool = false
     @State var commits: [Commit] = []
+    @AppStorage("orderByAsc") var orderByAsc: Bool = true
+    @AppStorage("emails") var emails: Set<String> = []
+    @AppStorage("filterRegxes") var filterRegxes: Set<String> = []
     
     init(range: CommitsRange) {
         self.range = range
@@ -69,25 +72,31 @@ struct CommitsView: View {
                     for repository in repositories {
                         switch repository.type {
                         case .gitlab:
-                            guard let url = URL(string: repository.address) else {continue}
-                            var request = url.scheme! + "://" + url.host!
-                            if let port = url.port {
-                                request += ":\(port)"
+                            for branch in repository.branches.components(separatedBy: ",") {
+                                guard !branch.isEmpty, let url = URL(string: repository.address) else {continue}
+                                var request = url.scheme! + "://" + url.host!
+                                if let port = url.port {
+                                    request += ":\(port)"
+                                }
+                                request += "/api/v4/projects/\(repository.id)/repository/commits"
+                                let data = try await AF.request(request, method: .get, parameters: ["ref_name" : branch], headers: ["PRIVATE-TOKEN" : repository.token, "Accept": "application/json"]).validate().serializingData().value
+                                guard let array = try JSONSerialization.jsonObject(with: data) as? [Map] else {
+                                    continue
+                                }
+                                commits.append(contentsOf: array.compactMap({ item in
+                                    Commit.from(item)
+                                }).filter {
+                                    !emails.contains($0.email) && !filterRegxes.regexContains($0.message)
+                                })
+                                print("branches \(branch)  commits: \(commits)")
                             }
-                            request += "/api/v4/projects/\(repository.id)/repository/commits"
-                            let data = try await AF.request(request, method: .get, headers: ["PRIVATE-TOKEN" : repository.token, "Accept": "application/json"]).validate().serializingData().value
-                            guard let array = try JSONSerialization.jsonObject(with: data) as? [Map] else {
-                                continue
-                            }
-                            commits.append(contentsOf: array.compactMap({ item in
-                                Commit.from(item)
-                            }))
                         case .github:
                             fatalError()
                         }
                     }
-                    
-                    
+                    commits = commits.sorted { a, b in
+                        orderByAsc ? a.date < b.date : a.date > b.date
+                    }
                     DispatchQueue.main.async {
                         self.commits = commits
                         isLoading = false
@@ -104,6 +113,17 @@ struct CommitsView: View {
             load()
         }
         
+    }
+}
+extension Set where Element == String {
+    func regexContains(_ string: String) -> Bool {
+        for regex in self {
+            guard string.range(of: regex, options: .regularExpression) != nil else {
+                continue
+            }
+            return true
+        }
+        return false
     }
 }
 

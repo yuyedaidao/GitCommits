@@ -14,11 +14,11 @@
 
 import Foundation
 import GRDB
-//import Logging
-//import YQLogger
+import Logging
+import YQLogger
 
-//var _log = Logger(label: "YQDB")
-//var log = YQLogger(_log)
+var _log = Logger(label: "YQDB")
+var log = YQLogger(_log)
 
 public class DBManager {
     public static let shared = DBManager()
@@ -52,14 +52,14 @@ public class DBManager {
         #endif
         do {
             let path = try dbPath(with: name ?? "database.sql")
-//            log.debug("db path: \(path)")
+            log.debug("db path: \(path)")
             let dbQueue = try DatabaseQueue(
                 path: path,
                 configuration: config
             )
             _db = dbQueue
         } catch {
-//            log.error(error)
+            log.error(error)
             fatalError("数据库初始化失败")
         }
     }

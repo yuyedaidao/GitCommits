@@ -37,6 +37,8 @@
 		55BE58F52835F35A006E9DD6 /* HostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE58F42835F35A006E9DD6 /* HostingView.swift */; };
 		55BE58F72835F391006E9DD6 /* WindowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE58F62835F391006E9DD6 /* WindowModifier.swift */; };
 		55BE58FA2836185A006E9DD6 /* Appdelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BE58F92836185A006E9DD6 /* Appdelegate.swift */; };
+		55CEECE12844656E00DFEF27 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEECE02844656E00DFEF27 /* Label.swift */; };
+		55CEECE22844656E00DFEF27 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CEECE02844656E00DFEF27 /* Label.swift */; };
 		55E0A6452833A82F00BEAFFF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E0A6442833A82F00BEAFFF /* HomeView.swift */; };
 		55E0A6462833A82F00BEAFFF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E0A6442833A82F00BEAFFF /* HomeView.swift */; };
 		55E0A6472833A82F00BEAFFF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E0A6442833A82F00BEAFFF /* HomeView.swift */; };
@@ -100,6 +102,7 @@
 		55BE58F62835F391006E9DD6 /* WindowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowModifier.swift; sourceTree = "<group>"; };
 		55BE58F82835F816006E9DD6 /* GitCommits--macOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GitCommits--macOS--Info.plist"; sourceTree = "<group>"; };
 		55BE58F92836185A006E9DD6 /* Appdelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appdelegate.swift; sourceTree = "<group>"; };
+		55CEECE02844656E00DFEF27 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		55E0A6442833A82F00BEAFFF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		55E54C2D283CE508002F9F5F /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		55E54C31283CE60A002F9F5F /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
@@ -192,6 +195,7 @@
 				55A118CC2840B4BC00AF9E5B /* Flow.swift */,
 				55E6057A28379E2A008EBA5C /* ConfirmButtonStyle.swift */,
 				55E54C39283DCA46002F9F5F /* WebView.swift */,
+				55CEECE02844656E00DFEF27 /* Label.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -542,6 +546,7 @@
 				55BE58EF2835DD01006E9DD6 /* RepositoryImportView.swift in Sources */,
 				556DFE862834A40000C67539 /* RepositoryView.swift in Sources */,
 				556DFE832834A28B00C67539 /* CommitsView.swift in Sources */,
+				55CEECE12844656E00DFEF27 /* Label.swift in Sources */,
 				55E6057B28379E2A008EBA5C /* ConfirmButtonStyle.swift in Sources */,
 				55E54C2E283CE508002F9F5F /* DictionaryExtension.swift in Sources */,
 				556DFE8D2834D71200C67539 /* RepositoryType.swift in Sources */,
@@ -572,6 +577,7 @@
 				55BE58FA2836185A006E9DD6 /* Appdelegate.swift in Sources */,
 				550AE472283F6A4B00598FC3 /* Map.swift in Sources */,
 				55BE58F52835F35A006E9DD6 /* HostingView.swift in Sources */,
+				55CEECE22844656E00DFEF27 /* Label.swift in Sources */,
 				55BE58F02835DD01006E9DD6 /* RepositoryImportView.swift in Sources */,
 				556DFE872834A40000C67539 /* RepositoryView.swift in Sources */,
 				556DFE842834A28B00C67539 /* CommitsView.swift in Sources */,

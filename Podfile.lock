@@ -3,20 +3,28 @@ PODS:
   - GRDB.swift (5.24.0):
     - GRDB.swift/standard (= 5.24.0)
   - GRDB.swift/standard (5.24.0)
+  - Logging (1.4.0)
+  - YQLogger (0.1.1):
+    - Logging (~> 1.4)
 
 DEPENDENCIES:
   - Alamofire
   - GRDB.swift
+  - YQLogger
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - GRDB.swift
+    - Logging
+    - YQLogger
 
 SPEC CHECKSUMS:
   Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
   GRDB.swift: 7ecc8799aaa97cf1fbbcfa9d75821aa920cb713f
+  Logging: beeb016c9c80cf77042d62e83495816847ef108b
+  YQLogger: d4af00a94382ba03add29ef873e77b31c3eefe9b
 
-PODFILE CHECKSUM: 76bf4991a55e3111ba9e0d1d7f5a013e26c5bbd4
+PODFILE CHECKSUM: dc245d5a2d429d9cb0f17aaf8ac184d5889567a8
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
