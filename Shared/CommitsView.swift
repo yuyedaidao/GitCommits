@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Alamofire
+import SwiftDate
 
 enum CommitsRange {
     case today
@@ -31,8 +32,10 @@ struct CommitsView: View {
     
     let cache = NSCache<CacheKey, CacheValue>()
     let range: CommitsRange
-    @EnvironmentObject var appState: AppState
+    @State var startDate: Date
+    @State var endDate: Date
     
+    @EnvironmentObject var appState: AppState
     @State var isLoading: Bool = false
     @State var commits: [Commit] = []
     @AppStorage("orderByAsc") var orderByAsc: Bool = true
@@ -41,23 +44,67 @@ struct CommitsView: View {
     
     init(range: CommitsRange) {
         self.range = range
+        
+        switch range {
+        case .today:
+            _startDate = State(initialValue: Date.now.dateAt(.startOfDay))
+            _endDate = State(initialValue: Date.now.dateAt(.endOfDay))
+        case .week:
+            _startDate = State(initialValue: Date.now.dateAt(.startOfWeek))
+            _endDate = State(initialValue: Date.now.dateAt(.endOfWeek))
+        case .month:
+            _startDate = State(initialValue: Date.now.dateAt(.startOfMonth))
+            _endDate = State(initialValue: Date.now.dateAt(.endOfMonth))
+        case .custom:
+            _startDate = State(initialValue: Date.now.dateAt(.startOfWeek))
+            _endDate = State(initialValue: Date.now.dateAt(.endOfWeek))
+        }
         if let commits = cache.object(forKey: CacheKey("commits_"))?.value, !commits.isEmpty {
-            print("cached commits \(commits)")
             self.commits = commits
         }
     }
     
     var body: some View {
         ZStack {
-            List(commits) { item in
-                Text(item.message)
+            VStack(alignment: .leading, spacing: 0) {
+                if range == .custom {
+                    HStack(alignment: .center, spacing: 20) {
+                        Image(systemName: "calendar").resizable().frame(width: 20, height: 20).scaledToFit()
+                        DatePicker("开始日期", selection: $startDate, displayedComponents: [.date])
+                        DatePicker("结束日期", selection: $endDate, displayedComponents: [.date])
+                    }.datePickerStyle(.stepperField)
+                        .padding()
+                }
+                List(commits) { item in
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(item.message)
+                        HStack {
+                            Text(item.author)
+                            Spacer()
+                            Text(item.date.toISO())
+                        }
+                    }
+                    .padding()
+                    .background(Color.gray)
+                    .background(in: RoundedRectangle(cornerRadius: 4))
+                }
             }
             if isLoading {
                 ZStack {
                     ProgressView()
                 }
             }
-        }.onAppear {
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .confirmationAction) {
+                Button(action: {
+                    loadData(true)
+                }, label: {
+                    Image(systemName: "goforward")
+                })
+            }
+        }
+        .onAppear {
             loadData()
         }
     }
@@ -68,6 +115,7 @@ struct CommitsView: View {
             let repositories = appState.repositories
             DispatchQueue.global().async {
                 Task {
+                    let dateFormatter = ISO8601DateFormatter()
                     var commits: [Commit] = []
                     for repository in repositories {
                         switch repository.type {
@@ -79,7 +127,14 @@ struct CommitsView: View {
                                     request += ":\(port)"
                                 }
                                 request += "/api/v4/projects/\(repository.id)/repository/commits"
-                                let data = try await AF.request(request, method: .get, parameters: ["ref_name" : branch], headers: ["PRIVATE-TOKEN" : repository.token, "Accept": "application/json"]).validate().serializingData().value
+                                var parameters: Map =  ["ref_name" : branch]
+                                parameters["since"] = dateFormatter.string(from: startDate)
+                                parameters["until"] = dateFormatter.string(from: endDate)
+                                
+#if DEBUG
+                                print("parameters : \(parameters) ")
+#endif
+                                let data = try await AF.request(request, method: .get, parameters: parameters, headers: ["PRIVATE-TOKEN" : repository.token, "Accept": "application/json"]).validate().serializingData().value
                                 guard let array = try JSONSerialization.jsonObject(with: data) as? [Map] else {
                                     continue
                                 }
