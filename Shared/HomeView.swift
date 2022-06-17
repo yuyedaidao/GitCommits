@@ -52,18 +52,26 @@ struct MenuView: View {
                     MenuItem(title: "导入仓库")
                 }
             } else {
-                Section("仓库") {
+                Section {
                     ForEach(appState.repositories) { repository in
                         NavigationLink {
                             RepositoryView(repository: repository)
                         } label: {
-                            MenuItem(title: repository.name)
+                            RepositoryMenuItem(repository: repository)
+                        }
+                    }
+                } header: {
+                    Text("仓库").contextMenu {
+                        Button {
+                            appState.isRepositoryImportPresented = true
+                        } label: {
+                            Text("新建仓库")
                         }
                     }
                 }
             }
             // 记录
-            Section("记录") {
+            Section {
                 NavigationLink(destination: CommitsView(range: .week)) {
                     MenuItem(title: "本周")
                 }
@@ -76,7 +84,10 @@ struct MenuView: View {
                 NavigationLink(destination: CommitsView(range: .custom)) {
                     MenuItem(title: "自选")
                 }
+            } header: {
+                Text("记录")
             }
+
             // 设置
             Spacer()
             NavigationLink(destination: SettingsView()) {
@@ -88,11 +99,25 @@ struct MenuView: View {
     }
 }
 
+
 struct MenuItem: View {
     var title: String
     
     var body: some View {
         Text(title)
+    }
+}
+
+struct RepositoryMenuItem: View {
+    let repository: Repository
+    
+    var body: some View {
+        HStack(alignment: .center, spacing: 10) {
+            MenuItem(title: repository.name)
+            Image("\(repository.type.rawValue)_icon")
+                .resizable()
+                .frame(width: 10, height: 10)
+        }
     }
 }
 

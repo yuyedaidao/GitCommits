@@ -76,17 +76,7 @@ struct CommitsView: View {
                         .padding()
                 }
                 List(commits) { item in
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text(item.message)
-                        HStack {
-                            Text(item.author)
-                            Spacer()
-                            Text(item.date.toISO())
-                        }
-                    }
-                    .padding()
-                    .background(Color.gray)
-                    .background(in: RoundedRectangle(cornerRadius: 4))
+                    CommitCell(commit: item)
                 }
             }
             if isLoading {
@@ -130,18 +120,14 @@ struct CommitsView: View {
                                 var parameters: Map =  ["ref_name" : branch]
                                 parameters["since"] = dateFormatter.string(from: startDate)
                                 parameters["until"] = dateFormatter.string(from: endDate)
-                                
-#if DEBUG
-                                print("parameters : \(parameters) ")
-#endif
                                 let data = try await AF.request(request, method: .get, parameters: parameters, headers: ["PRIVATE-TOKEN" : repository.token, "Accept": "application/json"]).validate().serializingData().value
                                 guard let array = try JSONSerialization.jsonObject(with: data) as? [Map] else {
                                     continue
                                 }
                                 commits.append(contentsOf: array.compactMap({ item in
-                                    Commit.from(item)
+                                    Commit.from(item, repository: repository)
                                 }).filter {
-                                    !emails.contains($0.email) && !filterRegxes.regexContains($0.message)
+                                    emails.contains($0.email) && !filterRegxes.regexContains($0.message)
                                 })
                                 print("branches \(branch)  commits: \(commits)")
                             }
