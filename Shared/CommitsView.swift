@@ -105,34 +105,16 @@ struct CommitsView: View {
             let repositories = appState.repositories
             DispatchQueue.global().async {
                 Task {
-                    let dateFormatter = ISO8601DateFormatter()
                     var commits: [Commit] = []
                     for repository in repositories {
-                        switch repository.type {
-                        case .gitlab:
+                        if repository.branches.isEmpty {
+                            let array = try await fetchCommits(with: repository)
+                            commits.append(contentsOf: array)
+                        } else {
                             for branch in repository.branches.components(separatedBy: ",") {
-                                guard !branch.isEmpty, let url = URL(string: repository.address) else {continue}
-                                var request = url.scheme! + "://" + url.host!
-                                if let port = url.port {
-                                    request += ":\(port)"
-                                }
-                                request += "/api/v4/projects/\(repository.id)/repository/commits"
-                                var parameters: Map =  ["ref_name" : branch]
-                                parameters["since"] = dateFormatter.string(from: startDate)
-                                parameters["until"] = dateFormatter.string(from: endDate)
-                                let data = try await AF.request(request, method: .get, parameters: parameters, headers: ["PRIVATE-TOKEN" : repository.token, "Accept": "application/json"]).validate().serializingData().value
-                                guard let array = try JSONSerialization.jsonObject(with: data) as? [Map] else {
-                                    continue
-                                }
-                                commits.append(contentsOf: array.compactMap({ item in
-                                    Commit.from(item, repository: repository)
-                                }).filter {
-                                    emails.contains($0.email) && !filterRegxes.regexContains($0.message)
-                                })
-                                print("branches \(branch)  commits: \(commits)")
+                                let array = try await fetchCommits(with: repository, branch: branch)
+                                commits.append(contentsOf: array)
                             }
-                        case .github:
-                            fatalError()
                         }
                     }
                     commits = commits.sorted { a, b in
@@ -154,6 +136,94 @@ struct CommitsView: View {
             load()
         }
         
+    }
+    
+    func fetchCommits(with repository: Repository, branch: String? = nil) async throws -> [Commit] {
+        let dateFormatter = ISO8601DateFormatter()
+        var commits: [Commit] = []
+        switch repository.type {
+        case .github:
+            guard let url = URL(string: repository.address) else {throw GCError("地址错误")}
+            var request = url.scheme! + "://api." + url.host!
+            if let port = url.port {
+                request += ":\(port)"
+            }
+            request += "/repos/\(repository.fullName)/commits?page=1&per_page=100"
+            var parameters: Map =  [ : ]
+            if let branch = branch {
+                parameters["sha"] = branch
+            }
+            parameters["since"] = dateFormatter.string(from: startDate)
+            parameters["until"] = dateFormatter.string(from: endDate)
+#if DEBUG
+            log.debug("github paramter : \(parameters)")
+#endif
+            let data = try await AF.request(request, method: .get, parameters: parameters, headers: ["Accept": "application/json", "Authorization" : "token \(repository.token)"]).cURLDescription(calling: { curl in
+#if DEBUG
+                log.debug("github curl : \(curl)")
+#endif
+            }).validate().serializingData().value
+            guard let array = try JSONSerialization.jsonObject(with: data) as? [Map] else {
+                throw GCError("数据结构与预期不符")
+            }
+            commits.append(contentsOf: array.compactMap({ item in
+                Commit.from(item, repository: repository, branch: branch)
+            }).filter {
+                emails.contains($0.email) && !filterRegxes.regexContains($0.message)
+            })
+        case .gitlab:
+            guard let url = URL(string: repository.address) else {throw GCError("地址错误")}
+            var request = url.scheme! + "://" + url.host!
+            if let port = url.port {
+                request += ":\(port)"
+            }
+            request += "/api/v4/projects/\(repository.id)/repository/commits"
+            var parameters: Map =  [ : ]
+            if let branch = branch {
+                parameters["ref_name"] = branch
+            }
+            parameters["since"] = dateFormatter.string(from: startDate)
+            parameters["until"] = dateFormatter.string(from: endDate)
+            let data = try await AF.request(request, method: .get, parameters: parameters, headers: ["PRIVATE-TOKEN" : repository.token, "Accept": "application/json"]).validate().serializingData().value
+            guard let array = try JSONSerialization.jsonObject(with: data) as? [Map] else {
+                throw GCError("数据结构与预期不符")
+            }
+            commits.append(contentsOf: array.compactMap({ item in
+                Commit.from(item, repository: repository, branch: branch)
+            }).filter {
+                emails.contains($0.email) && !filterRegxes.regexContains($0.message)
+            })
+        case .gitee:
+            guard let url = URL(string: repository.address) else {throw GCError("地址错误")}
+            var request = url.scheme! + "://" + url.host!
+            if let port = url.port {
+                request += ":\(port)"
+            }
+            request += "/api/v5/repos/\(repository.fullName)/commits?access_token=\(repository.token)&page=1&per_page=100"
+            var parameters: Map =  [ : ]
+            if let branch = branch {
+                parameters["sha"] = branch
+            }
+            parameters["since"] = dateFormatter.string(from: startDate)
+            parameters["until"] = dateFormatter.string(from: endDate)
+#if DEBUG
+            log.debug("gitee paramter : \(parameters)")
+#endif
+            let data = try await AF.request(request, method: .get, parameters: parameters, headers: ["Accept": "application/json"]).cURLDescription(calling: { curl in
+#if DEBUG
+                log.debug("gitee curl : \(curl)")
+#endif
+            }).validate().serializingData().value
+            guard let array = try JSONSerialization.jsonObject(with: data) as? [Map] else {
+                throw GCError("数据结构与预期不符")
+            }
+            commits.append(contentsOf: array.compactMap({ item in
+                Commit.from(item, repository: repository, branch: branch)
+            }).filter {
+                emails.contains($0.email) && !filterRegxes.regexContains($0.message)
+            })
+        }
+        return commits
     }
 }
 extension Set where Element == String {

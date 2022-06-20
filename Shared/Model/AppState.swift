@@ -31,10 +31,11 @@ class AppState: ObservableObject {
                     table.column(Columns.owner.rawValue, .text)
                     table.column(Columns.token.rawValue, .text)
                     table.column(Columns.branches.rawValue, .text)
+                    table.column(Columns.defaultBranch.rawValue, .text)
                 }
             }
         } catch let error {
-//            log.error(error)
+            log.error(error)
         }
     }
     
@@ -45,7 +46,7 @@ class AppState: ObservableObject {
             }
             self.repositories = repositories
         } catch let error {
-//            log.error(error)
+            log.error(error)
         }
     }
 }

@@ -18,6 +18,7 @@ struct Commit {
     let author: String
     let email: String
     let url: String
+    let branch: String
 }
 
 extension Commit: Codable, Hashable, Identifiable {
@@ -31,6 +32,7 @@ extension Commit: Codable, Hashable, Identifiable {
         hasher.combine(author)
         hasher.combine(email)
         hasher.combine(url)
+        hasher.combine(branch)
     }
     
     var id: Int {
@@ -39,7 +41,7 @@ extension Commit: Codable, Hashable, Identifiable {
 }
 
 extension Commit {
-    static func from(_ object: Map, repository: Repository) -> Commit? {
+    static func from(_ object: Map, repository: Repository, branch: String? = nil) -> Commit? {
         switch repository.type {
         case .github:
             let dateFormatter = ISO8601DateFormatter()
@@ -52,7 +54,7 @@ extension Commit {
                   let url = object["html_url"] as? String else {
                 return nil
             }
-            return Commit(repoName: repository.name, repoType: repository.type, cid: cid, date: date, message: message, author: author, email: email, url: url)
+            return Commit(repoName: repository.name, repoType: repository.type, cid: cid, date: date, message: message, author: author, email: email, url: url, branch: branch ?? repository.defaultBranch)
         case .gitlab:
             let dateFormatter = ISO8601DateFormatter()
             dateFormatter.formatOptions = [.withTimeZone, .withInternetDateTime, .withFractionalSeconds]
@@ -65,7 +67,19 @@ extension Commit {
                   let url = object["web_url"] as? String else {
                 return nil
             }
-            return Commit(repoName: repository.name, repoType: repository.type, cid: cid, date: date, message: message, author: author, email: email, url: url)
+            return Commit(repoName: repository.name, repoType: repository.type, cid: cid, date: date, message: message, author: author, email: email, url: url, branch: branch ?? repository.defaultBranch)
+        case .gitee: // 跟github一样
+            let dateFormatter = ISO8601DateFormatter()
+            guard let cid = object["sha"] as? String,
+                  let _date = object.value(for: "commit.author.date") as? String,
+                  let date = dateFormatter.date(from: _date),
+                  let message = object.value(for: "commit.message") as? String,
+                  let author = object.value(for: "commit.author.name") as? String,
+                  let email = object.value(for: "commit.author.email") as? String,
+                  let url = object["html_url"] as? String else {
+                return nil
+            }
+            return Commit(repoName: repository.name, repoType: repository.type, cid: cid, date: date, message: message, author: author, email: email, url: url, branch: branch ?? repository.defaultBranch)
         }
     }
 }

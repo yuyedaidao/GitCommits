@@ -12,6 +12,12 @@
 		550AE46F283F44F800598FC3 /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550AE46D283F44F800598FC3 /* Commit.swift */; };
 		550AE471283F6A4B00598FC3 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550AE470283F6A4B00598FC3 /* Map.swift */; };
 		550AE472283F6A4B00598FC3 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550AE470283F6A4B00598FC3 /* Map.swift */; };
+		5564348228601BE70053D54A /* GCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5564348128601BE70053D54A /* GCError.swift */; };
+		5564348328601BE70053D54A /* GCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5564348128601BE70053D54A /* GCError.swift */; };
+		5564348528607D230053D54A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5564348428607D230053D54A /* Network.swift */; };
+		5564348628607D230053D54A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5564348428607D230053D54A /* Network.swift */; };
+		55643488286080810053D54A /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55643487286080810053D54A /* URLExtension.swift */; };
+		55643489286080810053D54A /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55643487286080810053D54A /* URLExtension.swift */; };
 		55693D65283B21DE00B00EE0 /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55693D64283B21DE00B00EE0 /* SimpleAlert.swift */; };
 		556DFE832834A28B00C67539 /* CommitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DFE822834A28B00C67539 /* CommitsView.swift */; };
 		556DFE842834A28B00C67539 /* CommitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DFE822834A28B00C67539 /* CommitsView.swift */; };
@@ -87,6 +93,9 @@
 		440F7FD5CD24FCBEA4E99E2E /* Pods_GitCommits__macOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitCommits__macOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		550AE46D283F44F800598FC3 /* Commit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
 		550AE470283F6A4B00598FC3 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		5564348128601BE70053D54A /* GCError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCError.swift; sourceTree = "<group>"; };
+		5564348428607D230053D54A /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		55643487286080810053D54A /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
 		55693D64283B21DE00B00EE0 /* SimpleAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleAlert.swift; sourceTree = "<group>"; };
 		556DFE822834A28B00C67539 /* CommitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitsView.swift; sourceTree = "<group>"; };
 		556DFE852834A40000C67539 /* RepositoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryView.swift; sourceTree = "<group>"; };
@@ -166,6 +175,7 @@
 				55E54C2D283CE508002F9F5F /* DictionaryExtension.swift */,
 				5584ADAB283E1E6000E59403 /* AppStorageArray.swift */,
 				5578F25E285C6F8200F48670 /* DateExtension.swift */,
+				55643487286080810053D54A /* URLExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -178,6 +188,7 @@
 				556DFE8F2834DC8700C67539 /* AppState.swift */,
 				550AE46D283F44F800598FC3 /* Commit.swift */,
 				550AE470283F6A4B00598FC3 /* Map.swift */,
+				5564348128601BE70053D54A /* GCError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -186,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				55E54C31283CE60A002F9F5F /* DBManager.swift */,
+				5564348428607D230053D54A /* Network.swift */,
 			);
 			path = Help;
 			sourceTree = "<group>";
@@ -229,8 +241,8 @@
 				55E0A6442833A82F00BEAFFF /* HomeView.swift */,
 				5584ADA8283E0FE800E59403 /* SettingsView.swift */,
 				55BE58EE2835DD01006E9DD6 /* RepositoryImportView.swift */,
-				55F64A2928325359006720D5 /* Assets.xcassets */,
 				556DFE822834A28B00C67539 /* CommitsView.swift */,
+				55F64A2928325359006720D5 /* Assets.xcassets */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -541,11 +553,13 @@
 				55A118CD2840B4BC00AF9E5B /* Flow.swift in Sources */,
 				55E0A6452833A82F00BEAFFF /* HomeView.swift in Sources */,
 				550AE471283F6A4B00598FC3 /* Map.swift in Sources */,
+				55643488286080810053D54A /* URLExtension.swift in Sources */,
 				5578F25C285C661300F48670 /* CommitCell.swift in Sources */,
 				55F64A4F28325359006720D5 /* GitCommitsApp.swift in Sources */,
 				556DFE902834DC8700C67539 /* AppState.swift in Sources */,
 				55BE58EF2835DD01006E9DD6 /* RepositoryImportView.swift in Sources */,
 				556DFE862834A40000C67539 /* RepositoryView.swift in Sources */,
+				5564348228601BE70053D54A /* GCError.swift in Sources */,
 				556DFE832834A28B00C67539 /* CommitsView.swift in Sources */,
 				55CEECE12844656E00DFEF27 /* Label.swift in Sources */,
 				55E6057B28379E2A008EBA5C /* ConfirmButtonStyle.swift in Sources */,
@@ -557,6 +571,7 @@
 				5584ADA9283E0FE800E59403 /* SettingsView.swift in Sources */,
 				55A118D02840C59E00AF9E5B /* FloatInputView.swift in Sources */,
 				5584ADAC283E1E6000E59403 /* AppStorageArray.swift in Sources */,
+				5564348528607D230053D54A /* Network.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,14 +580,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				550AE46F283F44F800598FC3 /* Commit.swift in Sources */,
+				55643489286080810053D54A /* URLExtension.swift in Sources */,
 				55E0A6462833A82F00BEAFFF /* HomeView.swift in Sources */,
 				55A118D12840C59E00AF9E5B /* FloatInputView.swift in Sources */,
 				55F64A5028325359006720D5 /* GitCommitsApp.swift in Sources */,
+				5564348328601BE70053D54A /* GCError.swift in Sources */,
 				5584ADAA283E0FE800E59403 /* SettingsView.swift in Sources */,
 				556DFE912834DC8700C67539 /* AppState.swift in Sources */,
 				5584ADAD283E1E6000E59403 /* AppStorageArray.swift in Sources */,
 				55A118CE2840B4BC00AF9E5B /* Flow.swift in Sources */,
 				5578F25D285C661300F48670 /* CommitCell.swift in Sources */,
+				5564348628607D230053D54A /* Network.swift in Sources */,
 				55693D65283B21DE00B00EE0 /* SimpleAlert.swift in Sources */,
 				55E6057C28379E2A008EBA5C /* ConfirmButtonStyle.swift in Sources */,
 				55BE58FA2836185A006E9DD6 /* Appdelegate.swift in Sources */,

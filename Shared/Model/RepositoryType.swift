@@ -8,8 +8,9 @@
 import Foundation
 
 enum RepositoryType: String, Codable {
-    case github
-    case gitlab
+    case github // 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
+    case gitlab // uPe4UBzF_s532mmhHeNV
+    case gitee // 95b8adf66012a25d102ec8adb4e1573d
 }
 
 extension RepositoryType: CaseIterable {}

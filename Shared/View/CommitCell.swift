@@ -43,6 +43,6 @@ struct CommitCell: View {
 
 struct CommitCell_Previews: PreviewProvider {
     static var previews: some View {
-        CommitCell(commit: Commit(repoName: "sparrow", repoType: .gitlab, cid: "aaaaa", date: Date(), message: "处理粉丝 动态 问答 直播无法自由显示隐藏的问题 处理粉丝 动态 问答 直播无法自由显示隐藏的问题 处理粉丝 动态 问答 直播无法自由显示隐藏的问题", author: "WYQ", email: "wyqpadding@gmail.com", url: "https://codecenter.iqilu.com:8181/wyq/sparrow/-/commit/6855ded99d6ef5935bc959639718d2113e2f7d6a"))
+        CommitCell(commit: Commit(repoName: "sparrow", repoType: .gitlab, cid: "aaaaa", date: Date(), message: "处理粉丝 动态 问答 直播无法自由显示隐藏的问题 处理粉丝 动态 问答 直播无法自由显示隐藏的问题 处理粉丝 动态 问答 直播无法自由显示隐藏的问题", author: "WYQ", email: "wyqpadding@gmail.com", url: "https://codecenter.iqilu.com:8181/wyq/sparrow/-/commit/6855ded99d6ef5935bc959639718d2113e2f7d6a", branch: "main"))
     }
 }

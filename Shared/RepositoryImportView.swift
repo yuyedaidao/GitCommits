@@ -37,6 +37,8 @@ struct RepositoryImportView: View {
                     } onCommit: {
                         if address.contains("github.com") {
                             type = RepositoryType.github.rawValue
+                        } else if address.contains("gitee.com") {
+                            type = RepositoryType.gitee.rawValue
                         } else {
                             type = RepositoryType.gitlab.rawValue
                         }
@@ -135,79 +137,35 @@ struct RepositoryImportView: View {
     
     
     func importRepository() {
-        guard !address.isEmpty else {
-            alert("仓库地址不能为空")
-            return
-        }
-        guard let url = URL(string: address) else {
-            alert("请填写正确的仓库地址")
-            return
-        }
-        guard !token.isEmpty else {
-            alert("请填写访问令牌")
-            return
-        }
-        var path = url.path
-        guard !path.isEmpty else {
-            alert("请填写正确的仓库地址")
-            return
-        }
-        if path.hasPrefix("/") {
-            path = String(path.dropFirst())
-        }
-        if path.hasSuffix(".git") {
-            path = String(path.dropLast(".git".count))
-        }
-        guard let scheme = url.scheme, let host = url.host else {
-            alert("请填写正确的仓库地址")
-            return
-        }
-        
-        var request = "\(scheme)://\(host)"
-        if let port = url.port {
-            request = request + ":\(port)"
-        }
-        request = request + "/api/v4/projects/\(path.replacingOccurrences(of: "/", with: "%2F"))"
         isLoading = true
-        let type = RepositoryType(rawValue: type)!
-        switch type {
-        case .gitlab:
-            Task {[self] in
-                do {
-                    let data = try await AF.request(request, method: .get, headers: ["PRIVATE-TOKEN" : token, "Accept": "application/json"]).cURLDescription { description in
-                        print(description)
-                    }.validate().serializingData().value
-                    guard let object = try JSONSerialization.jsonObject(with: data) as? Map else {
-                        isLoading = false
-                        alert("返回数据结构不正确")
-                        return
-                    }
-                    guard let address = object["web_url"] as? String, let name = object["name"] as? String, let fullName = object["path_with_namespace"] as? String, let id = object["id"] as? uint64 else {
-                        alert("返回的数据不完整")
-                        return
-                    }
-                    let repository = Repository(id: id, type: type, address: address, name: name, fullName: fullName, owner: object.value(for: "owner.name") as? String, avatar: object.value(for: "owner.avatar") as? String, token: token, branches: branches.joined(separator: ","))
-                    let exists = try await DBManager.db.read { db -> Bool in
-                        try repository.exists(db)
-                    }
-                    isLoading = false
-                    if exists {
-                        alert("已存在此地址的仓库")
-                    } else {
-                        try await DBManager.db.write({ db in
-                            try repository.save(db)
-                        })
-                        appState.reloadRepositories()
-                        appState.isRepositoryImportPresented = false
-                    }
-                    
-                } catch let error {
-                    isLoading = false
-                    alert("\(error)")
-                }
+        
+        Task {[self] in
+            let type = RepositoryType(rawValue: type)!
+            let components = try address.repositoryComponents()
+            var url = URL.repositoryRepoApi(with: components, type: type)
+            if type == .gitee {
+                url += "?access_token=\(token)"
             }
-        case .github:
-            fatalError()
+            do {
+                let repository = try await Network.fetchRepository(with: url, type: type, token: token, branches: branches)
+                let exists = try await DBManager.db.read { db -> Bool in
+                    try repository.exists(db)
+                }
+                isLoading = false
+                if exists {
+                    throw GCError("已存在此地址的仓库")
+                } else {
+                    try await DBManager.db.write({ db in
+                        try repository.save(db)
+                    })
+                    appState.reloadRepositories()
+                    appState.isRepositoryImportPresented = false
+                }
+                
+            } catch let error {
+                isLoading = false
+                alert("\(error)")
+            }
         }
     }
     

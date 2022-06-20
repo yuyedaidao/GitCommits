@@ -18,6 +18,7 @@ struct Repository {
     let avatar: String?
     let token: String
     var branches: String
+    var defaultBranch: String
 }
 
 extension Repository: Identifiable {}
@@ -33,5 +34,6 @@ extension Repository: FetchableRecord, PersistableRecord {
         case avatar
         case token
         case branches
+        case defaultBranch
     }
 }

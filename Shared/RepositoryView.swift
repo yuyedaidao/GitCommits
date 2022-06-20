@@ -51,7 +51,21 @@ struct RepositorySettingsView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-           
+            HStack(alignment: .top, spacing: 0) {
+                 Label("更新仓库")
+                Button {
+                    var url: String = ""
+                    switch repository.type {
+                    case .gitlab:
+                        url = repository.address
+                    default:
+                        fatalError()
+                    }
+                } label: {
+                    Image(systemName: "goforward")
+                }
+
+            }
             HStack(alignment: .top, spacing: 0) {
                 Label("检索分支")
                 VStack(alignment: .leading, spacing: 4) {
