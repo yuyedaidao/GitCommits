@@ -44,7 +44,7 @@ public class DBManager {
             objc_sync_exit(self)
         }
         var config = Configuration()
-        config.label = "YQDB"
+        config.label = "GitCommitDB"
         #if DEBUG
             config.prepareDatabase { db in
                 db.trace()

@@ -18,7 +18,7 @@ struct HomeView: View {
             IntroductionView()
                 .frame(minWidth: 100, maxWidth: .infinity, alignment: .center)
         }
-        .navigationTitle("我的Git提交记录")
+        .navigationTitle("Git提交记录")
         .toolbar {
             ToolbarItem(placement: .navigation) {
                 Button(action: toggleSidebar, label: {
@@ -42,6 +42,7 @@ struct HomeView: View {
 struct MenuView: View {
     
     @EnvironmentObject var appState: AppState
+    @State var isLoading = false
     
     var body: some View {
         List {
@@ -58,14 +59,31 @@ struct MenuView: View {
                             RepositoryView(repository: repository)
                         } label: {
                             RepositoryMenuItem(repository: repository)
+                        }.contextMenu {
+                            Button {
+                                updateRepository(repository)
+                            } label: {
+                                Text("更新信息")
+                            }
+                            
+                            Button {
+                                deleteRepository(repository)
+                            } label: {
+                                Text("删除仓库")
+                            }
                         }
                     }
                 } header: {
-                    Text("仓库").contextMenu {
-                        Button {
-                            appState.isRepositoryImportPresented = true
-                        } label: {
-                            Text("新建仓库")
+                    if isLoading {
+//                        ProgressView().progressViewStyle(CircularProgressViewStyle())
+                    } else {
+                        Text("仓库")
+                        .contextMenu {
+                            Button {
+                                appState.isRepositoryImportPresented = true
+                            } label: {
+                                Text("新建仓库")
+                            }
                         }
                     }
                 }
@@ -96,6 +114,53 @@ struct MenuView: View {
 
         }
         .listStyle(SidebarListStyle())
+    }
+    
+    func updateRepository(_ repository: Repository) {
+        isLoading = true
+        
+        Task {[self] in
+            let type = repository.type
+            let token = repository.token
+            let branches = repository.branches.components(separatedBy: ",")
+            let components = try repository.address.repositoryComponents()
+            var url = URL.repositoryRepoApi(with: components, type: type)
+            if type == .gitee {
+                url += "?access_token=\(token)"
+            }
+            let oldRpo = repository
+            do {
+                let repository = try await Network.fetchRepository(with: url, type: type, token: token, branches: branches)
+                DispatchQueue.main.async {
+                    isLoading = false
+                }
+                guard repository != oldRpo else {
+                    return
+                }
+                try await DBManager.db.write({ db in
+                    try oldRpo.delete(db)
+                    try repository.save(db)
+                })
+                appState.reloadRepositories()
+
+            } catch let error {
+                log.error(error)
+                DispatchQueue.main.async {
+                    isLoading = false
+                }
+            }
+        }
+    }
+    
+    func deleteRepository(_ repository: Repository) {
+        do {
+            let _ = try DBManager.db.write { db in
+                try repository.delete(db)
+            }
+//            appState.reloadRepositories()
+        } catch let error {
+            log.error(error)
+        }
     }
 }
 

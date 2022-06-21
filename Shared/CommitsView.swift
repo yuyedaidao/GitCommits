@@ -38,6 +38,7 @@ struct CommitsView: View {
     @EnvironmentObject var appState: AppState
     @State var isLoading: Bool = false
     @State var commits: [Commit] = []
+    @State var reportStyle = 0
     @AppStorage("orderByAsc") var orderByAsc: Bool = true
     @AppStorage("emails") var emails: Set<String> = []
     @AppStorage("filterRegxes") var filterRegxes: Set<String> = []
@@ -78,6 +79,36 @@ struct CommitsView: View {
                 List(commits) { item in
                     CommitCell(commit: item)
                 }
+                
+                Spacer()
+                
+                HStack(alignment: .center, spacing: 8) {
+                    Spacer()
+                    Button {
+                        var result: String = ""
+                        for (index, commit) in commits.enumerated() {
+                            if reportStyle == 0 {
+                                result.append("\(index + 1). ")
+                            }
+                            result.append(commit.message.trimmingCharacters(in: .whitespacesAndNewlines))
+                            if index != commits.count - 1 {
+                                result.append("\n")
+                            }
+                        }
+                        let pb = NSPasteboard.general
+                        pb.declareTypes([.string], owner: nil)
+                        pb.setString(result, forType: .string)
+                    } label: {
+                        Text("生成报告")
+                    }.buttonStyle(ConfirmButtonStyle())
+                    Picker(selection: $reportStyle) {
+                        ForEach(["带标号", "不带标号"]) { title in
+                            Text(title)
+                        }
+                    } label: {
+                        Text("样式")
+                    }
+                }.padding()
             }
             if isLoading {
                 ZStack {
@@ -148,13 +179,15 @@ struct CommitsView: View {
             if let port = url.port {
                 request += ":\(port)"
             }
-            request += "/repos/\(repository.fullName)/commits?page=1&per_page=100"
+            request += "/repos/\(repository.fullName)/commits"
             var parameters: Map =  [ : ]
             if let branch = branch {
                 parameters["sha"] = branch
             }
             parameters["since"] = dateFormatter.string(from: startDate)
             parameters["until"] = dateFormatter.string(from: endDate)
+            parameters["page"] = 1
+            parameters["per_page"] = 100
 #if DEBUG
             log.debug("github paramter : \(parameters)")
 #endif
@@ -199,8 +232,12 @@ struct CommitsView: View {
             if let port = url.port {
                 request += ":\(port)"
             }
-            request += "/api/v5/repos/\(repository.fullName)/commits?access_token=\(repository.token)&page=1&per_page=100"
-            var parameters: Map =  [ : ]
+            request += "/api/v5/repos/\(repository.fullName)/commits"
+            var parameters: Map =  [
+                "access_token": repository.token,
+                "page" : 1,
+                "per_page" : 100
+            ]
             if let branch = branch {
                 parameters["sha"] = branch
             }

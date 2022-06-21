@@ -42,6 +42,7 @@ struct RepositorySettingsView: View {
     @State var isInputPresented: Bool = false
     @State var branches: [String] = []
     @State var name: String = ""
+
     init(repository: Repository) {
         self.repository = repository
         if !repository.branches.isEmpty {
@@ -51,21 +52,7 @@ struct RepositorySettingsView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            HStack(alignment: .top, spacing: 0) {
-                 Label("更新仓库")
-                Button {
-                    var url: String = ""
-                    switch repository.type {
-                    case .gitlab:
-                        url = repository.address
-                    default:
-                        fatalError()
-                    }
-                } label: {
-                    Image(systemName: "goforward")
-                }
-
-            }
+          
             HStack(alignment: .top, spacing: 0) {
                 Label("检索分支")
                 VStack(alignment: .leading, spacing: 4) {
@@ -106,7 +93,6 @@ struct RepositorySettingsView: View {
                         .cornerRadius(14)
                     }
                 }
-                
                 .sheet(isPresented: $isInputPresented, content: {
                     FloatInputView(placeholder: "输入分支名字", isPresented: $isInputPresented) { name in
                         defer {
@@ -139,6 +125,8 @@ struct RepositorySettingsView: View {
             }
         
     }
+    
+    
 }
 
 struct EmptyRepositoryView: View {

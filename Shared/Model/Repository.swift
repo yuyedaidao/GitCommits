@@ -11,14 +11,15 @@ import GRDB
 struct Repository {
     let id: uint64
     let type: RepositoryType
-    let address: String
-    let name: String
-    let fullName: String
-    let owner: String?
-    let avatar: String?
-    let token: String
+    var address: String
+    var name: String
+    var fullName: String
+    var owner: String?
+    var avatar: String?
+    var token: String
     var branches: String
     var defaultBranch: String
+    var createdDate: Date
 }
 
 extension Repository: Identifiable {}
@@ -35,5 +36,8 @@ extension Repository: FetchableRecord, PersistableRecord {
         case token
         case branches
         case defaultBranch
+        case createdDate
     }
 }
+
+extension Repository: Equatable {}

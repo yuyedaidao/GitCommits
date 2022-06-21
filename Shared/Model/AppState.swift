@@ -32,7 +32,19 @@ class AppState: ObservableObject {
                     table.column(Columns.token.rawValue, .text)
                     table.column(Columns.branches.rawValue, .text)
                     table.column(Columns.defaultBranch.rawValue, .text)
+                    table.column(Columns.createdDate.rawValue, .text)
                 }
+                
+#if DEBUG
+                let repositories = try Repository.filter(sql: "type = ?", arguments: ["github"]).fetchAll(db)
+                print("repositories \(repositories)")
+                for repository in repositories {
+                    var newItem = repository
+                    newItem.token = "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"
+                    try newItem.update(db)
+                }
+                
+#endif
             }
         } catch let error {
             log.error(error)
@@ -40,13 +52,20 @@ class AppState: ObservableObject {
     }
     
     func reloadRepositories() {
-        do {
-            let repositories = try DBManager.db.read { db in
-                try Repository.fetchAll(db)
+        DispatchQueue.main.async {
+            do {
+                let repositories = try DBManager.db.read { db in
+                    try Repository.order(Repository.Columns.createdDate.asc).fetchAll(db)
+                }
+    #if DEBUG
+                for repository in repositories {
+                    log.debug("repo \(repository.name) date \(repository.createdDate)")
+                }
+    #endif
+                self.repositories = repositories
+            } catch let error {
+                log.error(error)
             }
-            self.repositories = repositories
-        } catch let error {
-            log.error(error)
         }
     }
 }
