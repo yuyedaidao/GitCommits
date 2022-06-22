@@ -177,11 +177,11 @@ struct RepositoryMenuItem: View {
     let repository: Repository
     
     var body: some View {
-        HStack(alignment: .center, spacing: 10) {
-            MenuItem(title: repository.name)
+        HStack(alignment: .center, spacing: 6) {
             Image("\(repository.type.rawValue)_icon")
                 .resizable()
-                .frame(width: 10, height: 10)
+                .frame(width: 12, height: 12)
+            MenuItem(title: repository.name)
         }
     }
 }

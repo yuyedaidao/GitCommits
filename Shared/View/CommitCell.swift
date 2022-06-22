@@ -9,7 +9,11 @@ import SwiftUI
 import SwiftDate
 
 struct CommitCell: View {
+    enum Action {
+        case delete
+    }
     let commit: Commit
+    let actionHandler: ((Action) -> Void)?
     let now = Date()
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -28,9 +32,22 @@ struct CommitCell: View {
                 }
             }
             HStack(spacing: 10) {
-                Text(commit.repoName)
+                Text(commit.repoName + "/" + commit.branch)
                 Text(commit.author)
                 Text(commit.date.isSameMonth(now) ? commit.date.toFormat("MM/dd HH:mm"): commit.date.toFormat("yyyy/MM/dd HH:mm"))
+                
+                Spacer()
+                
+                Button {
+                    actionHandler?(.delete)
+                } label: {
+                    Image(systemName: "trash.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 12, height: 12)
+                        
+                }
+
             }
             .font(.footnote)
             .foregroundColor(Color.black.opacity(0.3))
@@ -43,6 +60,6 @@ struct CommitCell: View {
 
 struct CommitCell_Previews: PreviewProvider {
     static var previews: some View {
-        CommitCell(commit: Commit(repoName: "sparrow", repoType: .gitlab, cid: "aaaaa", date: Date(), message: "处理粉丝 动态 问答 直播无法自由显示隐藏的问题 处理粉丝 动态 问答 直播无法自由显示隐藏的问题 处理粉丝 动态 问答 直播无法自由显示隐藏的问题", author: "WYQ", email: "wyqpadding@gmail.com", url: "https://codecenter.iqilu.com:8181/wyq/sparrow/-/commit/6855ded99d6ef5935bc959639718d2113e2f7d6a", branch: "main"))
+        CommitCell(commit: Commit(repoName: "sparrow", repoType: .gitlab, cid: "aaaaa", date: Date(), message: "处理粉丝 动态 问答 直播无法自由显示隐藏的问题 处理粉丝 动态 问答 直播无法自由显示隐藏的问题 处理粉丝 动态 问答 直播无法自由显示隐藏的问题", author: "WYQ", email: "wyqpadding@gmail.com", url: "https://codecenter.iqilu.com:8181/wyq/sparrow/-/commit/6855ded99d6ef5935bc959639718d2113e2f7d6a", branch: "main"), actionHandler: nil)
     }
 }

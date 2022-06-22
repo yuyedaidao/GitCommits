@@ -8,10 +8,11 @@
 import Foundation
 import AppKit
 import GRDB
+import SwiftDate
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSWindow.allowsAutomaticWindowTabbing = false
-        
+        SwiftDate.defaultRegion = Region.current
     }
 }

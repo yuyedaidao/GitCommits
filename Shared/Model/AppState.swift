@@ -34,17 +34,6 @@ class AppState: ObservableObject {
                     table.column(Columns.defaultBranch.rawValue, .text)
                     table.column(Columns.createdDate.rawValue, .text)
                 }
-                
-#if DEBUG
-                let repositories = try Repository.filter(sql: "type = ?", arguments: ["github"]).fetchAll(db)
-                print("repositories \(repositories)")
-                for repository in repositories {
-                    var newItem = repository
-                    newItem.token = "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"
-                    try newItem.update(db)
-                }
-                
-#endif
             }
         } catch let error {
             log.error(error)

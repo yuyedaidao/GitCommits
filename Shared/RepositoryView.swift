@@ -42,17 +42,21 @@ struct RepositorySettingsView: View {
     @State var isInputPresented: Bool = false
     @State var branches: [String] = []
     @State var name: String = ""
-
+    @State var token: String = ""
     init(repository: Repository) {
         self.repository = repository
         if !repository.branches.isEmpty {
             _branches = State(initialValue: repository.branches.components(separatedBy: ","))
         }
+        _token = State(initialValue: repository.token)
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-          
+            HStack(alignment: .top, spacing: 0) {
+                Label("访问令牌")
+                TextField("", text: $token)
+            }
             HStack(alignment: .top, spacing: 0) {
                 Label("检索分支")
                 VStack(alignment: .leading, spacing: 4) {
@@ -70,15 +74,6 @@ struct RepositorySettingsView: View {
                             Button {
                                 guard let index = branches.firstIndex(of: name) else {return}
                                 branches.remove(at: index)
-                                var newRep = repository
-                                newRep.branches = branches.joined(separator: ",")
-                                do {
-                                    try DBManager.db.write { db in
-                                        try newRep.update(db)
-                                    }
-                                } catch let error {
-                                    log.error(error)
-                                }
                             } label: {
                                 Image(systemName: "xmark.circle")
                                     .resizable()
@@ -102,17 +97,6 @@ struct RepositorySettingsView: View {
                             return
                         }
                         self.branches = branches + [name]
-                        var newRep = repository
-                        newRep.branches = self.branches.joined(separator: ",")
-                        
-                        do {
-                            try DBManager.db.write { db in
-                                try newRep.update(db)
-                            }
-                        } catch let error {
-                            log.error(error)
-                        }
-                        
                     }
                 })
             }
@@ -121,6 +105,17 @@ struct RepositorySettingsView: View {
         }.padding()
             .frame(minWidth: 300, alignment: .topLeading)
             .onDisappear {
+                // 更新数据 刷新列表
+                var newRep = repository
+                newRep.branches = self.branches.joined(separator: ",")
+                newRep.token = token
+                do {
+                    try DBManager.db.write { db in
+                        try newRep.update(db)
+                    }
+                } catch let error {
+                    log.error(error)
+                }
                 appState.reloadRepositories()
             }
         

@@ -6,6 +6,7 @@ def common
   pod 'GRDB.swift'
   pod 'YQLogger'
   pod 'SwiftDate'
+  pod 'AlertToast'
 end
 
 target 'GitCommits (iOS)' do

@@ -39,6 +39,9 @@ struct CommitsView: View {
     @State var isLoading: Bool = false
     @State var commits: [Commit] = []
     @State var reportStyle = 0
+    @State var isAlertPresented = false
+    @State var alertMessage: String = ""
+    @State var willRemove: Commit? = nil
     @AppStorage("orderByAsc") var orderByAsc: Bool = true
     @AppStorage("emails") var emails: Set<String> = []
     @AppStorage("filterRegxes") var filterRegxes: Set<String> = []
@@ -77,7 +80,29 @@ struct CommitsView: View {
                         .padding()
                 }
                 List(commits) { item in
-                    CommitCell(commit: item)
+                    CommitCell(commit: item) { _ in
+                        willRemove = item
+                        alertMessage = "确定要删除这条记录吗?"
+                        isAlertPresented = true
+                    }
+                }.alert(alertMessage, isPresented: $isAlertPresented) {
+                    HStack {
+                        Button(role: .cancel) {
+                            
+                        } label: {
+                            Text("取消")
+                        }
+                        
+                        Button(role: .destructive) {
+                            self.commits.removeAll { commit in
+                                commit == willRemove
+                            }
+                        } label: {
+                            Text("确定")
+                        }
+                    }
+                } message: {
+                    EmptyView()
                 }
                 
                 Spacer()
@@ -102,12 +127,12 @@ struct CommitsView: View {
                         Text("生成报告")
                     }.buttonStyle(ConfirmButtonStyle())
                     Picker(selection: $reportStyle) {
-                        ForEach(["带标号", "不带标号"]) { title in
-                            Text(title)
+                        ForEach([(0, "带标号"), (1, "不带标号")], id: \.0) { item in
+                            Text(item.1)
                         }
                     } label: {
-                        Text("样式")
-                    }
+                        EmptyView()
+                    }.frame(width: 80)
                 }.padding()
             }
             if isLoading {
@@ -136,26 +161,35 @@ struct CommitsView: View {
             let repositories = appState.repositories
             DispatchQueue.global().async {
                 Task {
-                    var commits: [Commit] = []
-                    for repository in repositories {
-                        if repository.branches.isEmpty {
-                            let array = try await fetchCommits(with: repository)
-                            commits.append(contentsOf: array)
-                        } else {
-                            for branch in repository.branches.components(separatedBy: ",") {
-                                let array = try await fetchCommits(with: repository, branch: branch)
+                    do {
+                        var commits: [Commit] = []
+                        for repository in repositories {
+                            if repository.branches.isEmpty {
+                                let array = try await fetchCommits(with: repository)
                                 commits.append(contentsOf: array)
+                            } else {
+                                for branch in repository.branches.components(separatedBy: ",") {
+                                    let array = try await fetchCommits(with: repository, branch: branch)
+                                    commits.append(contentsOf: array)
+                                }
                             }
                         }
-                    }
-                    commits = commits.sorted { a, b in
-                        orderByAsc ? a.date < b.date : a.date > b.date
-                    }
-                    DispatchQueue.main.async {
-                        self.commits = commits
-                        isLoading = false
+                        commits = commits.sorted { a, b in
+                            orderByAsc ? a.date < b.date : a.date > b.date
+                        }
+                        DispatchQueue.main.async {
+                            self.commits = commits
+                            isLoading = false
+                        }
+                    } catch let error {
+                        log.error(error)
+                        DispatchQueue.main.async {
+//                            self.commits = commits
+                            isLoading = false
+                        }
                     }
                 }
+                
             }
         }
         if force {
