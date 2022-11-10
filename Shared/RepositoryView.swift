@@ -16,18 +16,28 @@ struct RepositoryView: View {
         let request = try! URLRequest(url: repository.address, method: .get)
         return HStack {
             WebView(request: request).toolbar {
-                ToolbarItemGroup(placement: .confirmationAction) {
-                    Button(action: {
-                        appState.isRepositoryImportPresented = true
-                    }, label: {
-                        Image(systemName: "plus")
-                    })
-                    Button {
-                        isShowSettingsPlan.toggle()
-                    } label: {
-                        Image(systemName: "gear.circle")
-                    }
+                Button(action: {
+                    appState.isRepositoryImportPresented = true
+                }, label: {
+                    Image(systemName: "plus")
+                })
+                Button {
+                    isShowSettingsPlan.toggle()
+                } label: {
+                    Image(systemName: "gear.circle")
                 }
+//                ToolbarItemGroup(placement: .confirmationAction) {
+//                    Button(action: {
+//                        appState.isRepositoryImportPresented = true
+//                    }, label: {
+//                        Image(systemName: "plus")
+//                    })
+//                    Button {
+//                        isShowSettingsPlan.toggle()
+//                    } label: {
+//                        Image(systemName: "gear.circle")
+//                    }
+//                }
             }
             if isShowSettingsPlan {
                 RepositorySettingsView(repository: repository)

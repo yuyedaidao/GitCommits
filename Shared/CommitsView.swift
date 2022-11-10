@@ -142,13 +142,11 @@ struct CommitsView: View {
             }
         }
         .toolbar {
-            ToolbarItemGroup(placement: .confirmationAction) {
-                Button(action: {
-                    loadData(true)
-                }, label: {
-                    Image(systemName: "goforward")
-                })
-            }
+            Button(action: {
+                loadData(true)
+            }, label: {
+                Image(systemName: "goforward")
+            })
         }
         .onAppear {
             loadData()
