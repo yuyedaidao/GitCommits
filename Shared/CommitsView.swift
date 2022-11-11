@@ -112,7 +112,7 @@ struct CommitsView: View {
                     Button {
                         var result: String = ""
                         for (index, commit) in commits.enumerated() {
-                            if reportStyle == 0 {
+                            if reportStyle == 1 {
                                 result.append("\(index + 1). ")
                             }
                             result.append(commit.message.trimmingCharacters(in: .whitespacesAndNewlines))
@@ -127,7 +127,7 @@ struct CommitsView: View {
                         Text("生成报告")
                     }.buttonStyle(ConfirmButtonStyle())
                     Picker(selection: $reportStyle) {
-                        ForEach([(0, "带标号"), (1, "不带标号")], id: \.0) { item in
+                        ForEach([(0, "不带标号"), (1, "带标号")], id: \.0) { item in
                             Text(item.1)
                         }
                     } label: {
