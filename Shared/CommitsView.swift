@@ -45,7 +45,8 @@ struct CommitsView: View {
     @AppStorage("orderByAsc") var orderByAsc: Bool = true
     @AppStorage("emails") var emails: Set<String> = []
     @AppStorage("filterRegxes") var filterRegxes: Set<String> = []
-    
+    @AppStorage("unrepeated") var unrepeated: Bool = true
+
     init(range: CommitsRange) {
         self.range = range
         
@@ -172,6 +173,9 @@ struct CommitsView: View {
                                 }
                             }
                         }
+                        if unrepeated {
+                            commits = commits.uniqued().uniqued(\.message)
+                        }
                         commits = commits.sorted { a, b in
                             orderByAsc ? a.date < b.date : a.date > b.date
                         }
@@ -292,7 +296,11 @@ struct CommitsView: View {
                 emails.contains($0.email) && !filterRegxes.regexContains($0.message)
             })
         }
-        return commits
+        if unrepeated {
+            return commits.uniqued()
+        } else {
+            return commits
+        }
     }
 }
 extension Set where Element == String {
@@ -304,6 +312,22 @@ extension Set where Element == String {
             return true
         }
         return false
+    }
+}
+
+extension Array where Element == Commit {
+    func uniqued(_ keyPath: KeyPath<Element, String> = \.cid) -> [Element] {
+        var result: [Element] = []
+        var set: Set<String> = []
+        for element in self {
+            let value = element[keyPath: keyPath]
+            guard !set.contains(value) else {
+                continue
+            }
+            set.insert(value)
+            result.append(element)
+        }
+        return result
     }
 }
 

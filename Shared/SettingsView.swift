@@ -19,6 +19,7 @@ struct SettingsView: View {
     @State var regex: String = ""
     @AppStorage("emails") var emails: Set<String> = []
     @AppStorage("filterRegxes") var filterRegxes: Set<String> = []
+    @AppStorage("unrepeated") var unrepeated: Bool = true
     @State var uuid: UUID = UUID()
     var body: some View {
         Group {
@@ -120,6 +121,11 @@ struct SettingsView: View {
                         }
                     }
                 }
+
+                SettingsCell(label: "是否去重") {
+                    Toggle("", isOn: $unrepeated)
+                }
+
             }
             .buttonStyle(PlainButtonStyle())
         }
